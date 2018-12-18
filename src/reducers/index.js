@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
 import { commonDataReducer } from "./commonData"
-import { productsReducer } from "./products"
+import { productsListDataReducer } from "./productsListData"
 
 export const rootReducer = combineReducers({
     commonData: commonDataReducer,
-    products: productsReducer,
+    productsListData: productsListDataReducer,
 })

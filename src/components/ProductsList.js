@@ -4,10 +4,14 @@ import PropTypes from 'prop-types'
 class ProductsList extends React.Component {
 
     renderProductList = () => {
-        const {data, onCountIncrement} = this.props;
+        const {data, onCountIncrement, filterValue} = this.props;
 
         if (data.length) {
-            return this.props.data.map(function(item) {
+            return this.props.data
+                .filter(function (item) {
+                    return item.name.includes(filterValue)
+                })
+                .map(function(item) {
                 return (
                     <tbody key = {item.id}>
                     {/*<Product data = {item} onCountIncrement = {onCountIncrement}/>*/}
