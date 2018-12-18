@@ -1,19 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { BasketProduct } from './BasketProduct'
+import { BasketTableHeader } from './BasketTableHeader'
+import { Total } from './Total'
 
 class BasketList extends React.Component {
 
     renderBasketList = () => {
-        const {onCountDecrement, onClearCount} = this.props;
+        const {onDecrementCount, onClearCount} = this.props;
         let basketListTemplate = this.props.data
             .filter(item => item.count)
             .map(function(item) {
                 return (
                     <tbody key = {item.id}>
-                    {/*<BasketProduct data = {item}
-                                   onCountDecrement = {onCountDecrement}
+                    <BasketProduct data = {item}
+                                   onCountDecrement = {onDecrementCount}
                                    onClearCount = {onClearCount}
-                    />*/}
+                    />
                     </tbody>
                 )
             });
@@ -26,11 +29,11 @@ class BasketList extends React.Component {
             <div className = "tableBorder">
                 <table>
                     <tbody>
-                    {/*<BasketTableHeader/>*/}
+                    <BasketTableHeader/>
                     </tbody>
                     {this.renderBasketList()}
                 </table>
-                {/*<Total data = {this.props.data}/>*/}
+                <Total data = {this.props.data}/>
 
             </div>
         )

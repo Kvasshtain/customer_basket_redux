@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import textStrings from '../data/textStrings.json'
-import ProductsListContainer from "./ProductsListContainer"
-import BasketListContainer from "./BasketListContainer"
-import { setBasketVisible } from "../actions/commonDataActions"
+import ProductsListContainer from './ProductsListContainer'
+import BasketListContainer from './BasketListContainer'
+import { setBasketVisible } from '../actions/commonDataActions'
+import { clearBasket } from '../actions/BasketListActions'
 import './App.css';
 
 class App extends Component {
@@ -14,6 +15,10 @@ class App extends Component {
 
     productListButtonClkHandler = () => {
         this.props.setBasketVisible(false);
+    }
+
+    clearBasketButtonClkHandler = () => {
+        this.props.clearBasket();
     }
 
   render() {
@@ -29,8 +34,6 @@ class App extends Component {
               </React.Fragment>
           )
       }
-
-      {/*filterValue = {this.state.filterValue}*/}
 
       return (
           <React.Fragment>
@@ -50,7 +53,8 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setBasketVisible: showBasket => dispatch(setBasketVisible(showBasket))
+        setBasketVisible: showBasket => dispatch(setBasketVisible(showBasket)),
+        clearBasket: () => dispatch(clearBasket()),
     }
 }
 

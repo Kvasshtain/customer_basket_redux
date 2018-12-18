@@ -11,6 +11,7 @@ class BasketListContainer extends React.Component {
         return (
             <ProductsList
                 data = {products}
+                filterValue = {filter}
                 onCountIncrement = {incrementCount}
                 onTextChange = {setFilter}
             />

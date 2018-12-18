@@ -6,12 +6,12 @@ import { decrementCount, clearCount } from '../actions/BasketListActions'
 class BasketListContainer extends React.Component {
 
     render() {
-        const { products, countDecrement, clearCount } = this.props
+        const { products, decrementCount, clearCount } = this.props
         
         return (
             <BasketList
                 data = {products}
-                onCountDecrement = {countDecrement}
+                onDecrementCount = {decrementCount}
                 onClearCount = {clearCount}
             />
         )

@@ -1,5 +1,5 @@
 import jsonProducts from '../data/products.json'
-import {DECREMENT_COUNT, CLEAR_COUNT } from '../actions/BasketListActions'
+import {DECREMENT_COUNT, CLEAR_COUNT, CLEAR_BASKET } from '../actions/BasketListActions'
 import {INCREMENT_COUNT, SET_FILTER} from '../actions/ProductsListActions'
 
 let products = jsonProducts.map(function (product) {
@@ -17,7 +17,7 @@ export function productsListDataReducer(state = initialState, action) {
     switch (action.type) {
         case INCREMENT_COUNT:
             return  { ...state, products: state.products.map(function(product) {
-                if (product.id = action.payload) {
+                if (product.id === action.payload) {
                     product.count++;
                 }
                 return product;
@@ -25,7 +25,7 @@ export function productsListDataReducer(state = initialState, action) {
 
         case DECREMENT_COUNT:
             return { ...state, products: state.products.map(function(product) {
-                if (product.id = action.payload) {
+                if (product.id === action.payload) {
                     product.count--;
                 }
                 return product;
@@ -33,9 +33,15 @@ export function productsListDataReducer(state = initialState, action) {
 
         case CLEAR_COUNT:
             return { ...state, products: state.products.map(function(product) {
-                if (product.id = action.payload) {
+                if (product.id === action.payload) {
                     product.count = 0;
                 }
+                return product;
+            })}
+
+        case CLEAR_BASKET:
+            return { ...state, products: state.products.map(function(product) {
+                product.count = 0;
                 return product;
             })}
 

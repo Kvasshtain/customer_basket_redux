@@ -1,5 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Product } from './Product'
+import { ProductFinder } from './ProductFinder'
+import { ProductTableHeader } from './ProductTableHeader'
 
 class ProductsList extends React.Component {
 
@@ -7,14 +10,22 @@ class ProductsList extends React.Component {
         const {data, onCountIncrement, filterValue} = this.props;
 
         if (data.length) {
-            return this.props.data
-                .filter(function (item) {
+            let visibleProducts,
+                products = this.props.data;
+
+            if (filterValue === ''){
+                visibleProducts = products;
+            } else {
+                visibleProducts = products.filter(function (item) {
                     return item.name.includes(filterValue)
-                })
+                });
+            }
+
+            return visibleProducts
                 .map(function(item) {
                 return (
                     <tbody key = {item.id}>
-                    {/*<Product data = {item} onCountIncrement = {onCountIncrement}/>*/}
+                    <Product data = {item} onCountIncrement = {onCountIncrement}/>
                     </tbody>
                 )
             })
@@ -37,14 +48,14 @@ class ProductsList extends React.Component {
             <div className = "tableBorder">
                 <table>
                     <tbody>
-                    {/*<ProductTableHeader/>*/}
+                    <ProductTableHeader/>
                     </tbody>
                     {this.renderProductList()}
                 </table>
-                {/*<ProductFinder
+                <ProductFinder
                     onTextChange = {onTextChange}
                     filterValue = {filterValue}
-                ></ProductFinder>*/}
+                ></ProductFinder>
             </div>
         )
     }
