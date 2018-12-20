@@ -9,5 +9,6 @@
   "minus": "-",
   "clearAll": "Clear all",
   "clearFilter": "clear filter",
-  "enterProductName": "Enter product name: "
+  "enterProductName": "Enter product name: ",
+  "notFound": "Resource is not found"
 }

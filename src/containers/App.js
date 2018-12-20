@@ -3,62 +3,57 @@ import { connect } from 'react-redux'
 import textStrings from '../data/textStrings.json'
 import ProductsListContainer from './ProductsListContainer'
 import BasketListContainer from './BasketListContainer'
-import { setBasketVisible } from '../actions/commonDataActions'
 import { clearBasket } from '../actions/BasketListActions'
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom'
+import { NotFound } from '../components/NotFound'
 import './App.css';
 
 class App extends Component {
-
-    basketButtonClkHandler = () => {
-        this.props.setBasketVisible(true);
-    }
-
-    productListButtonClkHandler = () => {
-        this.props.setBasketVisible(false);
-    }
 
     clearBasketButtonClkHandler = () => {
         this.props.clearBasket();
     }
 
   render() {
-      const {showBasket} = this.props
-
-      if(showBasket){
-          return (
-              <React.Fragment>
-                  <h1>{textStrings.basket}</h1>
-                  <BasketListContainer/>
-                  <button onClick = {this.productListButtonClkHandler}>{textStrings.productsList}</button>
-                  <button onClick = {this.clearBasketButtonClkHandler}>{textStrings.clearBasket}</button>
-              </React.Fragment>
-          )
-      }
 
       return (
-          <React.Fragment>
-              <h1>Products list</h1>
-              <ProductsListContainer/>
-              <button onClick = {this.basketButtonClkHandler}>{textStrings.basket}</button>
-          </React.Fragment>
+      <React.Fragment>
+          <BrowserRouter>
+          <Switch>
+              <Route path='/grocery_store/basket' children={()=>(
+                  <React.Fragment>
+                      <h1>{textStrings.basket}</h1>
+                      <BasketListContainer/>
+                      <Link to='/grocery_store/products'>
+                          <button>{textStrings.productsList}</button>
+                      </Link>
+                      <button onClick = {this.clearBasketButtonClkHandler}>{textStrings.clearBasket}</button>
+                  </React.Fragment>
+              )}/>
+              <Route path='/grocery_store/products' children={()=>(
+                  <React.Fragment>
+                      <h1>Products list</h1>
+                      <ProductsListContainer/>
+                      <Link to='/grocery_store/basket'>
+                          <button>{textStrings.basket}</button>
+                      </Link>
+                  </React.Fragment>
+              )}/>
+              <Route component = {NotFound} />
+          </Switch>
+          </BrowserRouter>
+      </React.Fragment>
       )
   }
 }
 
-const mapStateToProps = store => {
-    return{
-        showBasket: store.commonData.showBasket,
-    }
-}
-
 const mapDispatchToProps = dispatch => {
     return {
-        setBasketVisible: showBasket => dispatch(setBasketVisible(showBasket)),
         clearBasket: () => dispatch(clearBasket()),
     }
 }
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(App);
